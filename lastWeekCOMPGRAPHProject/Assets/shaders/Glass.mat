@@ -40,9 +40,10 @@ Material:
     - _BumpExtrusion: 0.0257
     - _FresnelIntensity: 0.53
     - _ScaleUV: 6
-    - _TintIntensity: 5
+    - _TintIntensity: 2.65
+    - _Transparency: 0.499
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 0.6773585, b: 0.6773585, a: 0}
+    - _EmissionColor: {r: 1, g: 0.9264151, b: 0.9264151, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

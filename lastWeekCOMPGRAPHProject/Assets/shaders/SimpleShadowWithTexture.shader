@@ -73,7 +73,8 @@ Shader "Custom/SimpleShadowWithTexture"
                 half shadowAmount = MainLightRealtimeShadow(IN.shadowCoords);
 
                 // Tint only the shadow
-                half4 tintedShadow = lerp(float4(1, 1, 1, 1), _ShadowTint, shadowAmount);
+                //half4 tintedShadow = lerp(float4(1, 1, 1, 1), _ShadowTint, shadowAmount);
+                half4 tintedShadow = lerp(float4(1, 1, 1, 1), shadowAmount, _ShadowTint);
 
                 // Combine the texture color with tinted shadow
                 return textureColor * tintedShadow;

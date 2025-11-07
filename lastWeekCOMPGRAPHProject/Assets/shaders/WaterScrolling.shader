@@ -12,11 +12,14 @@ Shader "Custom/WaterScrolling"
         _Speed ("Wave Speed", Range(0, 10)) = 1.0
         _Amp ("Wave Amplitude", Range(0, 1)) = 0.1
         _BaseColor ("Base Color", Color) = (0, 1, 1, 1)  // Default is light blue
+        _Transparency ("Transparency", Range(0,1)) = 0.5
     }
 
     SubShader
     {
-        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" }
+        Tags { "RenderType" = "Transparency" "RenderPipeline" = "UniversalPipeline" }
+
+        Blend DstColor SrcAlpha
 
         Pass
         {
@@ -54,6 +57,8 @@ Shader "Custom/WaterScrolling"
             float _Amp;
 
             float4 _BaseColor;
+
+            float _Transparency;
 
             Varyings vert(Attributes IN)
             {
@@ -94,7 +99,10 @@ Shader "Custom/WaterScrolling"
                 
                 // Blend both textures
                 half4 finalColor = (water + foam) * 0.5;
-                
+
+                texColor.a *= _Transparency;
+
+
                 return finalColor * _BaseColor;
             }
             ENDHLSL
