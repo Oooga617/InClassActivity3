@@ -10,16 +10,20 @@ Shader "Custom/Glass"
         _FresnelIntensity ("Fresnel Intensity", Range(0, 2)) = 1 //fresnel glow intensity
         _EmissionColor ("Emission Color", Color) = (0,0,0,0) //color of emitted light
         _TintIntensity ("Tint Intensity", Range(1, 5)) = 1.5
+        _Transparency ("Transparency", Range(0,1)) = 0.5
     }
 
     SubShader
     {
         //we render the object as transparent and us URP
         Tags { "Queue" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
+        
+        Blend DstColor SrcAlpha
 
         Pass
         {
             HLSLPROGRAM
+           
 
             #pragma vertex vert
             #pragma fragment frag
@@ -62,6 +66,8 @@ Shader "Custom/Glass"
             float _FresnelIntensity;
             float _TintIntensity;
             float4 _EmissionColor;
+            
+            float _Transparency;
 
             // Vertex shader (extrusion based on vertex normal, not bump map)
             v2f vert(appdata v)
@@ -120,6 +126,8 @@ Shader "Custom/Glass"
 
                 // Gamma correction for vibrancy
                 col.rgb = pow(col.rgb, 1.0 / 2.2);
+
+                col.a *= _Transparency;
 
                 return col;
             }
